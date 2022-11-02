@@ -1,0 +1,19 @@
+.wrapper {
+    display: inline-block;
+    width: 100%;
+}
+.container {
+    display: flex;
+    margin-top: var(--default-layout-header-height);
+
+    padding: 0 0 0 15px;
+}
+
+.content {
+    max-width: 100%;
+    flex: 1;
+}
+.sidebar-right {
+    display: block;
+    width: 22%;
+}

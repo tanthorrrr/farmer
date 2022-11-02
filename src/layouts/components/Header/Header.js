@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 
 import {
-    faEllipsisVertical,
+    // faEllipsisVertical,
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
@@ -10,27 +10,33 @@ import {
     faCoins,
     faGear,
     faSignOut,
+    faComment,
+    faBell,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'tippy.js/dist/tippy.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import config from '~/config';
 
 import Button from '~/component/Button';
-import images from '~/assets/images';
+// import images from '~/assets/images';
 import styles from './Header.module.scss';
 import Menu from '~/component/Popper/Menu';
-import { UploadIcon, MessageIcon, InboxIcon } from '~/component/Icons';
+// import { UploadIcon, MessageIcon, InboxIcon } from '~/component/Icons';
 import Image from '~/component/Image';
-import Search from '../Search';
+
+import { useState } from 'react';
+
+// import Upload from '~/pages/Upload';
+// import { UploadIcon } from '~/component/Icons';
 
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: 'English',
+        title: 'Ngôn Ngữ',
         children: {
             title: 'language 123',
             data: [
@@ -49,41 +55,43 @@ const MENU_ITEMS = [
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: 'Feedback and help',
+        title: 'Hổ trợ',
         to: '/feedback',
     },
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: 'Keyboard and ',
+        title: 'Keyboard ',
     },
 ];
 const MENU_USER_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'View profile',
+        title: 'Hồ Sơ',
         to: '/@thorrr',
     },
     {
         icon: <FontAwesomeIcon icon={faCoins} />,
-        title: 'Get coins',
+        title: 'Bán Sản Phẩm',
         to: '/coin',
     },
     {
         icon: <FontAwesomeIcon icon={faGear} />,
-        title: 'Settings',
+        title: 'Cài Đặt',
         to: '/settings',
     },
     ...MENU_ITEMS,
     {
         icon: <FontAwesomeIcon icon={faSignOut} />,
         title: 'Log out',
-        to: '/logout',
+        to: '/login',
         separate: true,
     },
 ];
 
 function Header() {
-    const curtentUser = true;
+    const [curtentUser, setCurtentUser] = useState(true);
+    const navigate = useNavigate();
+    const [wrapper, setWrapper] = useState(false);
     // handle logic
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -93,38 +101,90 @@ function Header() {
             default:
         }
     };
+    const handleLogin = () => {
+        navigate('/login');
+    };
+    const changBackground = () => {
+        if (window.scrollY >= 200) {
+            setWrapper(true);
+        } else {
+            setWrapper(false);
+        }
+    };
+    window.addEventListener('scroll', changBackground);
     return (
-        <header className={cx('wrapper')}>
+        <header className={wrapper ? cx(['wrapper', 'active']) : cx('wrapper')}>
             <div className={cx('inner')}>
                 <Link to={config.routes.home} className={cx('logo')}>
                     {' '}
-                    <img src={images.logo} alt="tiktok" />
+                    <img alt="LOGO" />
                 </Link>
-                <Search />
+                <div className={cx('navigation')}>
+                    <div className={cx('primary-links')}>
+                        <a
+                            href="#intro"
+                            className={wrapper ? cx(['link-container', 'link-container-active']) : cx('link-container')}
+                        >
+                            <p className={cx('heading-caps')}>Giới Thiệu</p>
+                        </a>
+                        <a
+                            href="#story"
+                            className={wrapper ? cx(['link-container', 'link-container-active']) : cx('link-container')}
+                        >
+                            <p className={cx('heading-caps')}>Bài Viết</p>
+                        </a>
+                        <a
+                            href="#product"
+                            className={wrapper ? cx(['link-container', 'link-container-active']) : cx('link-container')}
+                        >
+                            <p className={cx('heading-caps')}>Sản Phẩm</p>
+                        </a>
+                        <a
+                            href="#3"
+                            className={wrapper ? cx(['link-container', 'link-container-active']) : cx('link-container')}
+                        >
+                            <p className={cx('heading-caps')}>Phản Hồi</p>
+                        </a>
+                        {/* <a
+                            href="#4"
+                            className={wrapper ? cx(['link-container', 'link-container-active']) : cx('link-container')}
+                        >
+                            <p className={cx('heading-caps')}>
+                                Tìm Kiếm
+                                <FontAwesomeIcon className={cx('icon-search')} icon={faSearch} />
+                            </p>
+                        </a> */}
+                    </div>
+                </div>
                 <div className={cx('actions')}>
                     {curtentUser ? (
                         <>
-                            <Tippy delay={[0, 200]} content="Upload Video" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <UploadIcon />
+                            <Tippy delay={[0, 200]} content="Tin Nhắn" placement="bottom">
+                                <button
+                                    className={wrapper ? cx(['action-btn-active', 'action-btn']) : cx('action-btn')}
+                                >
+                                    {/* <UploadIcon /> */}
+                                    <FontAwesomeIcon icon={faComment} />
                                 </button>
                             </Tippy>
-                            <Tippy delay={[0, 200]} content="Messenger" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <MessageIcon />
-                                </button>
-                            </Tippy>
-                            <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <InboxIcon />
+                            {/* <Tippy delay={[0, 200]} content="Messenger" placement="bottom">
+                                <button className={cx('action-btn')}>{ <MessageIcon /> }</button>
+                            </Tippy> */}
+                            <Tippy delay={[0, 200]} content="Thông Báo" placement="bottom">
+                                <button
+                                    className={wrapper ? cx(['action-btn-active', 'action-btn']) : cx('action-btn')}
+                                >
+                                    {/* <InboxIcon /> */}
+                                    <FontAwesomeIcon icon={faBell} />
                                     <span className={cx('badge')}>12</span>
                                 </button>
                             </Tippy>
                         </>
                     ) : (
                         <>
-                            <Button text>Upload</Button>
-                            <Button primary>Log in</Button>
+                            <Button onClick={handleLogin} primary>
+                                Đăng Nhập
+                            </Button>
                         </>
                     )}
                     <Menu items={curtentUser ? MENU_USER_ITEMS : MENU_ITEMS} onChange={handleMenuChange}>
@@ -135,9 +195,7 @@ function Header() {
                                 alt={'vo tan tho'}
                             />
                         ) : (
-                            <button className={cx('more-btn')}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
+                            <button className={cx('more-btn')}></button>
                         )}
                     </Menu>
                 </div>

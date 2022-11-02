@@ -50,10 +50,11 @@
     color: var(--white);
     background-color: var(--primary);
     border-color: var(--primary);
+    border-radius: 10px;
 
     &:hover {
         border-color: var(--primary);
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), var(--primary);
     }
 }
 

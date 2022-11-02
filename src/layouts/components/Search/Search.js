@@ -73,7 +73,7 @@ function Search() {
                     <input
                         ref={inputRef}
                         value={searchValue}
-                        placeholder="Seach accounts and videos"
+                        placeholder="Tìm kiếm thông tin ..."
                         spellCheck={false}
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}
