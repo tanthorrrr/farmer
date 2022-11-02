@@ -2,7 +2,7 @@ import styles from './Posts.module.scss';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faHeart, faHeartBroken, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faEllipsis, faHeart, faHeartBroken, faShare } from '@fortawesome/free-solid-svg-icons';
 
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
@@ -34,7 +34,10 @@ function Posts() {
                         <div className={cx('detail')}>
                             <span>Avata chổ này </span>
                             <span>
-                                <b>{items.Name}</b>
+                                <b>{items.Name} </b>
+                            </span>
+                            <span className={cx('actions')}>
+                                <FontAwesomeIcon icon={faEllipsis} />
                             </span>
                         </div>
                         <span> {items.Introduction}</span>
@@ -48,6 +51,7 @@ function Posts() {
                         <span>
                             {items.Like} likes {items.Like} comment
                         </span>
+                        <span>{items.CreateAt.toDate().toDateString()}</span>
                     </div>
                 ))
             )}

@@ -12,37 +12,38 @@ import { db, storege } from '~/firebase';
 
 const cx = classNames.bind(styles);
 function PostShare() {
-    const [image, setImage] = useState(null);
+    const [imageRender, setImageRender] = useState(null);
     const imageRef = useRef();
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
-            setImage({
+            setImageRender({
                 image: URL.createObjectURL(img),
             });
         }
     };
-    const [formData, setFormData] = useState({
+    const [formDataPost, setFormDataPost] = useState({
+        title: '',
         Introduction: '',
         image: '',
         CreateAt: Timestamp.now().toDate(),
-        Like: '333',
-        Name: 'Tan Tho',
+        Like: '',
+        Name: '',
     });
     const [progress, setProgress] = useState(0);
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormDataPost({ ...formDataPost, [e.target.name]: e.target.value });
     };
     const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        setFormDataPost({ ...formDataPost, image: e.target.files[0] });
     };
     const handlePublic = () => {
-        if (!formData.title && !formData.image) {
-            alert('vui lòng nhập đầy đủ thông tin!');
+        if (!formDataPost.title) {
+            alert('vui lòng nhập thông tin!');
             return;
         }
-        const storageRef = ref(storege, `/images/${Date.now()}${formData.image.name}`);
-        const upLoadImage = uploadBytesResumable(storageRef, formData.image);
+        const storageRef = ref(storege, `/images/${Date.now()}${formDataPost.image.name}`);
+        const upLoadImage = uploadBytesResumable(storageRef, formDataPost.image);
         upLoadImage.on(
             'state_changed',
             (snapshot) => {
@@ -53,20 +54,23 @@ function PostShare() {
                 console.log(err);
             },
             () => {
-                setFormData({
+                setFormDataPost({
                     title: '',
                     image: '',
                 });
                 getDownloadURL(upLoadImage.snapshot.ref).then((url) => {
                     const articleRef = collection(db, 'Post-Blog');
                     addDoc(articleRef, {
-                        title: formData.title,
-                        imageUrl: url,
+                        Introduction: formDataPost.title,
+                        Image: url,
                         CreateAt: Timestamp.now().toDate(),
+                        Like: '333',
+                        Name: 'Tan Tho',
                     })
                         .then(() => {
                             alert('Đăng bài thành công', { type: 'success' });
                             setProgress(0);
+                            setImageRender(null);
                         })
                         .catch((err) => {
                             alert('Đăng bài không thành công', { type: 'error' });
@@ -82,7 +86,8 @@ function PostShare() {
                 <div>
                     <input
                         type="text"
-                        value={formData.title}
+                        name="title"
+                        value={formDataPost.title}
                         onChange={(e) => {
                             handleChange(e);
                         }}
@@ -91,6 +96,8 @@ function PostShare() {
                     <div className={cx('postOption')}>
                         <div
                             className={cx('option')}
+                            name="image"
+                            accept="image/*"
                             onChange={(e) => {
                                 handleImageChange(e);
                             }}
@@ -118,14 +125,14 @@ function PostShare() {
                             <input type="file" name="myImage" ref={imageRef} onChange={onImageChange} />
                         </div>
                     </div>
-                    {image && (
+                    {imageRender && (
                         <div className={cx('previewImage')}>
                             <FontAwesomeIcon
                                 icon={faTimesCircle}
-                                onClick={() => setImage(null)}
+                                onClick={() => setImageRender(null)}
                                 className={cx('deleteImage')}
                             />
-                            <img src={image.image} alt="" className={cx('img-post')} />
+                            <img src={imageRender.image} alt="" className={cx('img-post')} />
                         </div>
                     )}
                 </div>

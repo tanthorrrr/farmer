@@ -40,7 +40,7 @@ export default function AddArticles() {
                     image: '',
                 });
                 getDownloadURL(upLoadImage.snapshot.ref).then((url) => {
-                    const articleRef = collection(db, 'Post-Blog');
+                    const articleRef = collection(db, 'Stoty-Product');
                     addDoc(articleRef, {
                         title: formData.title,
                         description: formData.description,

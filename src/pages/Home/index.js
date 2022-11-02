@@ -26,22 +26,22 @@ function Home() {
                 <div className={cx('about-us')}>
                     <h2 className={cx('intro-section')}>Giới Thiệu Về Trang Web</h2>
                     <div className={cx('section-cotainer')}>
-                        A Web project that aims to help farmers secure higher profits through direct communication
-                        between farmers to suppliers and farmers to farmers. Support for farming crops for farmers.This
-                        service promotes business communication and brings transparency to the system.This innovative
-                        website enables communication between good farmers, retailers, and suppliers. It allows farmers
-                        to log in and communicate with the respective agent. When the dealer publishes an advertisement
-                        or offer, the respective Farmer is notified via SMS,Farmers can also make complaints and appeals
-                        to the respective agents or authorities using their farmer login information on a separate
-                        complaints page and the authorities will visit the page regularly.
+                        Một dự án Web nhằm giúp nông dân đảm bảo lợi nhuận cao hơn thông qua giao tiếp trực tiếp giữa
+                        nông dân với nhà cung cấp và nông dân với nông dân. Hỗ trợ canh tác cây trồng cho nông dân. dịch
+                        vụ thúc đẩy giao tiếp kinh doanh và mang lại sự minh bạch cho hệ thống. trang web cho phép giao
+                        tiếp giữa nông dân giỏi, nhà bán lẻ và nhà cung cấp. Nó cho phép nông dân để đăng nhập và giao
+                        tiếp với đại lý tương ứng. Khi nhà cái đăng quảng cáo hoặc đề nghị, Nông dân tương ứng được
+                        thông báo qua SMS, Nông dân cũng có thể khiếu nại và khiếu nại cho các đại lý hoặc cơ quan chức
+                        năng tương ứng bằng cách sử dụng thông tin đăng nhập nông dân của họ trên một trang khiếu nại và
+                        các cơ quan chức năng sẽ ghé thăm trang thường xuyên.
                     </div>
                 </div>
                 <div className={cx('about-us-1')}>
-                    <h2 className={cx('intro-section-1')}>Giới Thiệu</h2>
+                    <h2 className={cx('intro-section-1')}>Hiện Trạng</h2>
                     <div className={cx('section-cotainer-1')}>
-                        Currently, we all continue to fight the Coronavirus. Farmers had a difficult the problem of
-                        supporting farming seems to be very difficult for people, maybe even throwing away their farming
-                        if the CORONA epidemic returns.There are two reasons leading to the above situation.
+                        Hiện tại, tất cả chúng ta vẫn tiếp tục chiến đấu với Coronavirus. Nông dân gặp khó khăn khi vấn
+                        đề việc hỗ trợ canh tác dường như rất khó đối với người dân, thậm chí có thể vứt bỏ việc canh
+                        tác của họ Nếu dịch CORONA quay trở lại, có hai nguyên nhân dẫn đến tình trạng trên.
                     </div>
                 </div>
             </div>
